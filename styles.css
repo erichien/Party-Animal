@@ -1,0 +1,40 @@
+body {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  background: white;
+}
+
+.heading {
+  display: relative;
+  text-align: center;
+  margin: 20px auto 0 auto;
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  grid-gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.grid-item  {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.grid-item.mirror {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+img:hover {
+  background: #ccc;
+}
