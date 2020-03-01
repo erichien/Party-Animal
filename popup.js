@@ -4,72 +4,53 @@
 
 'use strict';
 
-var intervals = [...Array(100).keys()];
-var counter = 0
 
-var a = `
-	var img = document.createElement('img');
-	img.src = '`;
+var renderCode = (eventTarget) => (
+	`window.counter = (window.counter === undefined) ? 0 : window.counter + 1;
+	window.imgs = (window.imgs === undefined) ? [] : window.imgs;
+	window.intervals = (window.intervals === undefined) ? [] : window.intervals;
+	window.pos = (window.pos === undefined) ? [] : window.pos;
+	var classNames = '` + eventTarget.className + `'.split(' ');
 
-var b = `';
-    if (`;
+	window.imgs[` + eventTarget.id + `] = document.createElement('img');
+	window.imgs[` + eventTarget.id + `].src = '` + eventTarget.src + `'
+	window.imgs[` + eventTarget.id + `].style.width = '150px';
+	window.imgs[` + eventTarget.id + `].style.height = 'auto';
+	window.imgs[` + eventTarget.id + `].style.transform =
+	    (classNames.includes('mirror')) ? "scaleX(-1)" : null;
+	window.imgs[` + eventTarget.id + `].style.webkitTransform =
+	    (classNames.includes('mirror')) ? "scaleX(-1)" : null;
+	window.imgs[` + eventTarget.id + `].style.position = 'fixed';
+	window.imgs[` + eventTarget.id + `].style.right = 0;
+	window.imgs[` + eventTarget.id + `].style.top = Math.floor(Math.random() * Math.floor(600)) + 'px';
+	window.imgs[` + eventTarget.id + `].style.zIndex = '10000';
+	document.body.appendChild(window.imgs[` + eventTarget.id + `]);
 
-
-var d = ` = setInterval(
-		function() {
-			pos++;
-			img.style.right = pos + 'px';
+	window.pos[` + eventTarget.id + `] = 0;
+	window.intervals[` + eventTarget.id + `] = setInterval(
+		() => {
+		    window.pos[` + eventTarget.id + `]++;
+		    window.imgs[` + eventTarget.id + `].style.right = window.pos[` + eventTarget.id + `] + 'px';
 		},
-		20,
+		50
 	);`
-
-var g = `';
-	img.style.width = '120px';
-	img.style.position = 'fixed';
-	img.style.right = 0;
-	img.style.top = Math.floor(Math.random() * Math.floor(600)) + 'px';
-	img.style.zIndex = '10000';
-	document.body.appendChild(img);
-	var pos = 0;
-	var id = setInterval(frame, 50);
-	function frame() {
-	    pos++;
-	    img.style.right = pos + 'px';
-	}
-	`
-
-var h = (src) => (
-	`var img = document.createElement('img');
-	img.src = '` +
-	src +
-	`';
-	img.style.width = '120px';
-	img.style.position = 'fixed';
-	img.style.right = 0;
-	img.style.top = Math.floor(Math.random() * Math.floor(600)) + 'px';
-	img.style.zIndex = '10000';
-	document.body.appendChild(img);
-	var pos = 0;
-	var id = setInterval(frame, 50);
-	function frame() {
-	    pos++;
-	    img.style.right = pos + 'px';
-	}
-	`
 );
 
+
 function click(e) {
-
-    chrome.tabs.executeScript(null,
-      {code: h(e.target.src)}
-  );
-
+    chrome.tabs.executeScript(
+    	null,
+    	{
+    		code: renderCode(e.target)
+    	}
+  	);
   window.close();
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
-  var imgs = document.querySelectorAll('img.grid-item');
-  for (var i = 0; i < imgs.length; i++) {
-    imgs[i].addEventListener('click', click);
-  }
+	var imgs = document.querySelectorAll('img.grid-item');
+	for (var i = 0; i < imgs.length; i++) {
+		imgs[i].addEventListener('click', click);
+	}
 });

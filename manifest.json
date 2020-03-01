@@ -1,13 +1,13 @@
 {
-  "name": "A browser action with a popup that changes the page color",
-  "description": "Change the current page color",
+  "name": "An extension that unleashes adorable creatures into your browser",
+  "description": "For animal lovers only.",
   "version": "1.0",
   "permissions": [
     "activeTab"
   ],
   "browser_action": {
-      "default_title": "Set this page's color.",
-      "default_icon": "chocolatechip.png",
+      "default_title": "Let the beasts out!",
+      "default_icon": "logo.png",
       "default_popup": "popup.html"
   },
   "manifest_version": 2

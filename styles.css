@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Changa&display=swap');
+
 body {
   overflow: hidden;
   margin: 0px;
@@ -7,10 +9,14 @@ body {
 
 .heading {
   display: relative;
-  text-align: center;
   margin: 20px auto 0 auto;
-  font-size: 12pt;
+  font-family: 'Changa';
+  font-size: 14pt;
   font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  color: #444;
+  letter-spacing: : 2px;
 }
 
 .grid-container {
@@ -24,8 +30,9 @@ body {
 
 .grid-item  {
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  margin: auto;
   padding: 8px;
   border-radius: 5px;
 }
